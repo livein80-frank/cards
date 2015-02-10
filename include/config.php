@@ -7,10 +7,14 @@
 	define("DB_HOST","localhost");
 	define("DB_USER","root");
 	define("DB_PASSWORD","1234");
-	define("DB_DATABASE","news");
+	define("DB_DATABASE","cards");
 	$syslogFile=$_SERVER['DOCUMENT_ROOT']."/news-".date('Ymd').".log";
 	
-	define("HOST","http://news.dev") ;
+	define("HOST","http://cards.dev") ;
+	define("REDIRECT_URI","http://cards.dev/") ;
 	define("BASE_DIR",dirname(dirname(__FILE__)));
+
+	define("AppId","wxb9baa02a839e1e58");
+	define("AppSecret","1d98e8ff15a1bc69c33ebd994024a30a");
 	
 ?>
