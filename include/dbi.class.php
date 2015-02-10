@@ -274,7 +274,7 @@
       */
     function lastInsertedId()
     {
-      return mysql_insert_id();
+      return mysqli_insert_id($this->conn);
     }
     /** Close the connexion with the database server.\n
       * It's usually unneeded since PHP do it automatically at script end.

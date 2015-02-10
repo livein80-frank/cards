@@ -28,7 +28,11 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 	$openid = $token['openid'] ;
 	$wxuser = $wxClient->findUser($openid) ;
 	$userModel = new Users() ;
-	$userModel->save($wxuser) ;
+	$u = $userModel->findByOpenId($openid) ;
+	//如果用户不存在，保存
+	if(!empty($u)){
+		$userModel->save($wxuser) ;		
+	}
 	$_SESSION['user'] = $wxuser ;
 }
 //var_dump($user) ;
@@ -55,3 +59,13 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 
 echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
 ?>
+
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+<script>
+$(function(){
+	var d = {'nickName':'frank','headUrl':'http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46','roleId':'1','greetId':'2'} ;
+	//$.post('cardsAction.php?action=save',d,function(data){
+	//	console.log(data) ;
+	//}) ;
+}) ;
+</script>
