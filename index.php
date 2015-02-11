@@ -61,6 +61,7 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 
 	return $url ;
 }
+systemLog(var_export($u,true)) ;
 var_dump($user) ;
 echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
 ?>
