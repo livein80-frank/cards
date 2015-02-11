@@ -28,7 +28,7 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 
 	$openid = $token['openid'] ;
 	$wxuser = $wxClient->findUser($openid) ;
-	systemLog(var_export($wxuser,true)) ;
+	//systemLog(var_export($wxuser,true)) ;
 	$userModel = new Users() ;
 	$u = $userModel->findByOpenId($openid) ;
 	systemLog(var_export($u,true)) ;
@@ -61,7 +61,7 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 
 	return $url ;
 }
-systemLog(var_export($u,true)) ;
+systemLog(var_export($user,true)) ;
 var_dump($user) ;
 echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
 ?>
