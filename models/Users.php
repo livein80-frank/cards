@@ -14,7 +14,7 @@ class Users{
 	 */
 	public function save($wxuser){
 		$now = date('Y-m-d H:i:s') ;
-		$res = $this->db->execute("INSERT INTO users(openid,username,head_img,created_at) VALUES('".$wxuser['openid']."','".$news['nickname']."','".$wxuser['headimgurl']."','".$now."')");
+		$res = $this->db->execute("INSERT INTO users(openid,username,head_img,created_at) VALUES('".$wxuser['openid']."','".$wxuser['nickname']."','".$wxuser['headimgurl']."','".$now."')");
 		return $res ;	
 	}	
 	/**
