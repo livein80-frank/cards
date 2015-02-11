@@ -33,7 +33,7 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 	$u = $userModel->findByOpenId($openid) ;
 	systemLog(var_export($u,true)) ;
 	//如果用户不存在，保存
-	if(!empty($u)){
+	if(!$u){
 		$userModel->save($wxuser) ;		
 	}
 	$_SESSION['user'] = $wxuser ;
