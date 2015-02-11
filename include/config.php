@@ -10,8 +10,8 @@
 	define("DB_DATABASE","cards");
 	$syslogFile=$_SERVER['DOCUMENT_ROOT']."/news-".date('Ymd').".log";
 	
-	define("HOST","http://cards.dev") ;
-	define("REDIRECT_URI","http://cards.dev/") ;
+	define("HOST","http://cards.liangcuntu.com") ;
+	define("REDIRECT_URI","http://cards.liangcuntu.com/") ;
 	define("BASE_DIR",dirname(dirname(__FILE__)));
 
 	define("AppId","wxb9baa02a839e1e58");
