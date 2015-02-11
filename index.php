@@ -34,7 +34,8 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 		$userModel->save($wxuser) ;		
 	}
 	$_SESSION['user'] = $wxuser ;
-	var_dump($wxuser) ;
+	$user = $_SESSION['user'] ;
+	//var_dump($wxuser) ;
 }
 //var_dump($user) ;
 //unset($_SESSION['user']) ;
@@ -57,7 +58,7 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 
 	return $url ;
 }
-
+var_dump($user) ;
 echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
 ?>
 
