@@ -7,6 +7,7 @@
 session_start() ;
 
 include(__dir__."/include/config.php");
+include(__dir__."/include/functions.php");
 include(__dir__."/models/Users.php");
 include(__dir__."/libraries/weixin.ex.class.php");
 
@@ -27,8 +28,10 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 
 	$openid = $token['openid'] ;
 	$wxuser = $wxClient->findUser($openid) ;
+	systemLog(var_export($wxuser,true)) ;
 	$userModel = new Users() ;
 	$u = $userModel->findByOpenId($openid) ;
+	systemLog(var_export($u,true)) ;
 	//如果用户不存在，保存
 	if(!empty($u)){
 		$userModel->save($wxuser) ;		
