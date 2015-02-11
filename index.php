@@ -34,11 +34,12 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 		$userModel->save($wxuser) ;		
 	}
 	$_SESSION['user'] = $wxuser ;
+	var_dump($wxuser) ;
 }
 //var_dump($user) ;
 //unset($_SESSION['user']) ;
 if(empty($user)){
-	//header("Location:".snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test")) ;
+	header("Location:".snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test")) ;
 }
 /**
  * echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
@@ -69,4 +70,3 @@ $(function(){
 	//}) ;
 }) ;
 </script>
-
