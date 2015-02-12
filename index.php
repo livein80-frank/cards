@@ -21,7 +21,20 @@ $state = $_GET['state'] ;
 //echo "code:".$code ;
 //echo "<br/>";
 
-$user = $_SESSION['user'] ;
+//$user = $_SESSION['user'] ;
+$user = array (
+  'openid' => 'o70Twt_GWx_vm2UmTO9WAmTIpvNA',
+  'nickname' => 'Frank',
+  'sex' => 1,
+  'language' => 'zh_CN',
+  'city' => '朝阳',
+  'province' => '北京',
+  'country' => '中国',
+  'headimgurl' => 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEKHwQDP2fznTsFuav6Ve3XK7Z9wKW4YMUkFhvNCRriaJZsT4Cic1tb4CmpSP1CYpYnulSnuXgiaXTa9w/0',
+  'privilege' => 
+  array (
+  ),
+);
 if(empty($user)&&!empty($code)&&!empty($state)){
 	$wxClient = new WeiXinClientV1(AppId,AppSecret);
 	$token = $wxClient->oauth->getAccessTokenByCode($code);
