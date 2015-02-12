@@ -5,17 +5,17 @@ var p; // shortcut to reference prototypes
 // library properties:
 lib.properties = {
 	width: 640,
-	height: 960,
+	height: 1500,
 	fps: 30,
 	color: "#000000",
 	manifest: [
-		{src:"images/bj.jpg", id:"bj"},
-		{src:"images/lg.jpg", id:"lg"},
-		{src:"images/s1btn.jpg", id:"s1btn"},
-		{src:"images/s2btn.jpg", id:"s2btn"},
-		{src:"images/t1.png", id:"t1"},
-		{src:"images/t2.png", id:"t2"},
-		{src:"images/wenzi.png", id:"wenzi"}
+		{src:"../images/bj.jpg", id:"bj"},
+		{src:"../images/lg.jpg", id:"lg"},
+		{src:"../images/s1btn.jpg", id:"s1btn"},
+		{src:"../images/s2btn.jpg", id:"s2btn"},
+		{src:"../images/t1.png", id:"t1"},
+		{src:"../images/t2.png", id:"t2"},
+		{src:"../images/wenzi.png", id:"wenzi"}
 	]
 };
 
@@ -592,11 +592,11 @@ p.nominalBounds = new cjs.Rectangle(0,0,69.5,521.4);
 
 	// 图层 1
 	this.instance = new lib.bj();
-	this.instance.setTransform(-320,-480);
+	this.instance.setTransform(-320,-480,1,1.563);
 
 	this.addChild(this.instance);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-320,-480,640,960);
+p.nominalBounds = new cjs.Rectangle(-320,-480,640,1500);
 
 
 (lib.m_补间17 = function() {
@@ -1192,11 +1192,11 @@ p.nominalBounds = new cjs.Rectangle(-71,-180.9,443,653.6);
 	this.instance_2 = new lib.m_bjmc();
 	this.instance_2.setTransform(546.1,755.4,1,1,0,0,0,155,275.4);
 	this.instance_2.filters = [new cjs.ColorMatrixFilter(new cjs.ColorMatrix(0, 0, 0, 10))];
-	this.instance_2.cache(-322,-482,644,964);
+	this.instance_2.cache(-322,-482,644,1504);
 
 	this.addChild(this.instance_2,this.instance_1,this.instance,this.btn1,this.btn0);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-59.7,-59,848.3,1055.6);
+p.nominalBounds = new cjs.Rectangle(-59.7,-59,848.3,1563.1);
 
 
 // stage content:
@@ -1209,7 +1209,7 @@ p.nominalBounds = new cjs.Rectangle(-59.7,-59,848.3,1055.6);
 
 	this.addChild(this.ui);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(189.3,421,848.3,1055.6);
+p.nominalBounds = new cjs.Rectangle(189.3,691,848.3,1563.1);
 
 })(lib = lib||{}, images = images||{}, createjs = createjs||{});
 var lib, images, createjs;

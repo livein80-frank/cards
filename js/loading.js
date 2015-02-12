@@ -5,7 +5,7 @@ var p; // shortcut to reference prototypes
 // library properties:
 lib.properties = {
 	width: 640,
-	height: 960,
+	height: 1500,
 	fps: 30,
 	color: "#FF0033",
 	manifest: []
@@ -204,7 +204,7 @@ p.nominalBounds = new cjs.Rectangle(-60.1,-613.1,248.5,623.1);
 
 	this.addChild(this.ui);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(509.6,902.8,248.5,624.1);
+p.nominalBounds = new cjs.Rectangle(509.6,1172.8,248.5,624.1);
 
 })(lib = lib||{}, images = images||{}, createjs = createjs||{});
 var lib, images, createjs;

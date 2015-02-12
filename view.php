@@ -1,14 +1,42 @@
+<?php
+/**
+ * author:frank
+ * date:2015-02-09
+ * email:fengxuting@gmail.com
+ */
+include(__dir__."/include/config.php");
+include(__dir__."/include/functions.php");
+include(__dir__."/models/Cards.php");
+include(__dir__."/libraries/Utils.php");
+include(__dir__."/libraries/weixin.ex.class.php");
+Utils::safeInput() ;
+$cardModel = new Cards() ;
+$cardId = $_GET['cardId'] ;
+$card = $cardModel->findCardId($cardId) ;
+//var_dump($card) ;
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>我的贺卡</title>
-
+<style type="text/css">
+	html,body{padding: 0px;margin: 0px;height: 100%;overflow: hidden;}
+</style>
+<script type="text/javascript">
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+                var phoneScale = parseInt(window.screen.width) / 640;
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
 </head>
 
-<body onload="init();" style="background-color:#D4D4D4">
-	<canvas id="canvas" width="640" height="960" style="background-color:#000000"></canvas>
-
+<body  style="background-color:#D4D4D4">
+	<canvas id="canvas" width="640" height="1500" style="background-color:#000000"></canvas>
+	<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 	<script src="js/easeljs-0.7.1.min.js"></script>
 	<script src="js/tweenjs-0.5.1.min.js"></script>
 	<script src="js/movieclip-0.7.1.min.js"></script>
@@ -21,7 +49,14 @@
 	<script type="text/javascript" src="js/view.js"></script>
 
 	<script>
+	$(function(){
+		init() ;
+	}) ;
 	var canvas, stage,loadingUi, ani1,ani2;
+	var _userheadUrl = '<?php echo $card->head_img?>';
+	var _nickNameStr = '<?php echo $card->username?>' ;
+	var _roleId = '<?php echo $card->role?>' ;
+	var _greetId = '<?php echo $card->greet?>' ;
 	var kardui1 = [
 		{src:"images/ani1_GIF.png", id:"ani1_GIF"},
 		{src:"images/ani1_wt10.png", id:"ani1_wt10"},
@@ -161,7 +196,8 @@
 		createjs.Ticker.setFPS(lib.properties.fps);
 		createjs.Ticker.addEventListener("tick", stage);
 
-		initUI();
+		//initUI();
+		initUI (_userheadUrl,_nickNameStr,_roleId,_greetId) ;
 		stage.removeChild(loadingUi);
 		// console.log(stage);
 		
@@ -179,5 +215,14 @@
 		createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
 	}
 	</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+ var hm = document.createElement("script");
+ hm.src = "//hm.baidu.com/hm.js?80cb5054afe5cd281a5070e9dc6f7600";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>

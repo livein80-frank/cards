@@ -19,6 +19,17 @@ class Cards{
 
 		return $this->db->lastInsertedId() ;
 	}
+	/**
+	 * 查找贺卡
+	 */
+	public function findCardId($cardId) {
+		$line = $this->db->queryUniqueObject("SELECT * FROM cards WHERE card_id='".$cardId."'");
+		if(!empty($line)){
+			return $line ;
+		}else{
+			return false ;
+		}
+	}
 
 }
 ?>

@@ -10,18 +10,18 @@ include(__dir__."/include/config.php");
 include(__dir__."/include/functions.php");
 include(__dir__."/models/Users.php");
 include(__dir__."/libraries/weixin.ex.class.php");
+require_once __dir__."/libraries/jssdk.php";
+$jssdk = new JSSDK('wxfeacbc4d70ea1ee4','46c4b82829ff95ecc87336dffee1c930');
+$signPackage = $jssdk->GetSignPackage();
 
 //是否登录
 //没有登录进行网页登录，保存用户信息到session及数据库
 //已登录显示内容
 $code = $_GET['code'] ;
 $state = $_GET['state'] ;
-//echo "state:".$state ;
-//echo "<br/>";
-//echo "code:".$code ;
-//echo "<br/>";
 
-//$user = $_SESSION['user'] ;
+$user = $_SESSION['user'] ;
+/*
 $user = array (
   'openid' => 'o70Twt_GWx_vm2UmTO9WAmTIpvNA',
   'nickname' => 'Frank',
@@ -34,7 +34,7 @@ $user = array (
   'privilege' => 
   array (
   ),
-);
+);*/
 if(empty($user)&&!empty($code)&&!empty($state)){
 	$wxClient = new WeiXinClientV1(AppId,AppSecret);
 	$token = $wxClient->oauth->getAccessTokenByCode($code);
@@ -44,7 +44,7 @@ if(empty($user)&&!empty($code)&&!empty($state)){
 	//systemLog(var_export($wxuser,true)) ;
 	$userModel = new Users() ;
 	$u = $userModel->findByOpenId($openid) ;
-	systemLog(var_export($u,true)) ;
+	//systemLog(var_export($u,true)) ;
 	//如果用户不存在，保存
 	if(!$u){
 		$userModel->save($wxuser) ;		
@@ -74,7 +74,7 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 
 	return $url ;
 }
-systemLog(var_export($user,true)) ;
+//systemLog(var_export($user,true)) ;
 //var_dump($user) ;
 //echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
 ?>
@@ -84,19 +84,13 @@ systemLog(var_export($user,true)) ;
 <meta charset="UTF-8">
 <title>美的冰箱</title>
 <style type="text/css">
-	html,body{padding: 0px;margin: 0px;}
+	html,body{padding: 0px;margin: 0px;height: 100%;overflow: hidden;}
 </style>
 <script type="text/javascript">
         if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
             var version = parseFloat(RegExp.$1);
-            // if (version > 2.3) {
                 var phoneScale = parseInt(window.screen.width) / 640;
                 document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
-            // } else {
-                // var phoneScale = parseInt(window.screen.width) / 640;
-                // document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
-                //document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
-            // }
         } else {
             document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
         }
@@ -104,10 +98,10 @@ systemLog(var_export($user,true)) ;
 </head>
 
 <body onload="init();" style="background-color:#D4D4D4">
-	<canvas id="canvas" width="640" height="960" style="background-color:#000000"></canvas>
+	<canvas id="canvas" width="640" height="1500" style="background-color:#000000"></canvas>
 
 
-
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
 <script src="js/easeljs-0.7.1.min.js"></script>
 <script src="js/tweenjs-0.5.1.min.js"></script>
 <script src="js/movieclip-0.7.1.min.js"></script>
@@ -120,7 +114,7 @@ systemLog(var_export($user,true)) ;
 <script type="text/javascript" src="js/aniUI03.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/Utils.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/index.js?v=0.2"></script>
 <script>
 var canvas, stage,loadingUi, mainUi,ani1,ani2,ani3;
 var loading_lib = [];
@@ -338,6 +332,77 @@ function handleComplete() {
 function playSound(id, loop) {
 	createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
 }
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: <?php echo $signPackage["timestamp"];?>,
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: [
+		// 所有要调用的 API 都要加到这个列表中
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+	]
+});
+var _shareTitle = "求红包利器" ;
+var _shareDesc = "还在喝酸奶舔瓶盖吗？还在干嚼方便面吃辣条吗？还在吃泡面喝汤吗？小编带你一起装B一起飞好么？come，北鼻！" ;
+var _shareLink = _shareUrl ;
+var _shareImgUrl = "http://"+window.location.host+"/cards/images/sharelogo.jpg" ;
+var share = function(_shareTitle,_shareDesc,_shareLink,_shareImgUrl){
+	wx.ready(function () {
+		wx.onMenuShareTimeline({
+		title: _shareTitle,
+		link: _shareLink,
+		imgUrl: _shareImgUrl,
+		trigger: function (res) {
+		// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+		//alert('用户点击分享到朋友圈');
+		//alert(_shareUrl) ;
+		},
+		success: function (res) {
+		  //alert('已分享');
+		},
+		cancel: function (res) {
+		  //alert('已取消');
+		},
+		fail: function (res) {
+		  //alert(JSON.stringify(res));
+		}
+		});
+		wx.onMenuShareAppMessage({
+		title: _shareTitle,
+		desc: _shareDesc,
+		link: _shareLink,
+		imgUrl: _shareImgUrl,
+		trigger: function (res) {
+			// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+			//alert('用户点击发送给朋友');
+		},
+		success: function (res) {
+		  //alert('已分享');
+		},
+		cancel: function (res) {
+		  //alert('已取消');
+		},
+		fail: function (res) {
+		  //alert(JSON.stringify(res));
+		}
+		});  	
+	});  
+}    
+share(_shareTitle,_shareDesc,_shareLink,_shareImgUrl) ;
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+ var hm = document.createElement("script");
+ hm.src = "//hm.baidu.com/hm.js?80cb5054afe5cd281a5070e9dc6f7600";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(hm, s);
+})();
 </script>
 </body>
 </html>
