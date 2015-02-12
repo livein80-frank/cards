@@ -1,9 +1,9 @@
-function initUI () {
+function initUI (_headimgUrl,_nickName) {
 	console.log('initUI');
 	//用户昵名 和 微信头像 可通过initUI传参的方式 传进来
-	var _nickNameStr = "老高";
+	var _nickNameStr = _nickName;//"老高";
 	var _isUserHead = false;
-	var _userheadUrl = "";
+	var _userheadUrl = _headimgUrl;//"";
 	var _userHead = new Image();
 	_userHead.onload = function(){
 		_isUserHead = true;
@@ -118,7 +118,7 @@ function initUI () {
 		 * [submit 提交用户信息]
 		 * @return {[type]} [description]
 		 */
-		var postUrl = "";
+		var postUrl = "/cardsAction.php?action=save";
 		function submitUserInfo () {
 			var userdata = {};
 			//用户昵名
@@ -130,22 +130,23 @@ function initUI () {
 			//祝福语的Id
 			userdata.greetId = greetId;
 
-			_kardMc.play();
-			// $.post(postUrl,userdata,function(data) {
-			// 	//提交成功后播放
-			// 	var obj = jQuery.parseJSON(data);
-			// 	// var obj = jQuery.parseJSON('{"name":"John"}');
-			// 	if(obj.isSuccess=='1'){
-			// 		//获取分享的地址
-			// 		_shareUrl = obj.linkUrl; 
-			// 		_kardMc.play();
-			// 	}else{
-			// 		alert('提交失败,请检查网络!');	
-			// 	}
-			// },function(){
-			// 	// 提交失败
-			// 	alert('提交失败,请检查网络!');	
-			// })			
+			//_kardMc.play();
+			$.post(postUrl,userdata,function(data) {
+				//提交成功后播放
+				var obj = jQuery.parseJSON(data);
+				// var obj = jQuery.parseJSON('{"name":"John"}');
+				if(obj.isSuccess=='1'){
+					//获取分享的地址
+					//_shareUrl = obj.linkUrl; 
+					_shareUrl = "http://"+window.location.host+"/view.php?cardId="+obj.cardId; 
+					_kardMc.play();
+				}else{
+					alert('提交失败,请检查网络!');	
+				}
+			},function(){
+				// 提交失败
+				alert('提交失败,请检查网络!');	
+			})			
 		}
 
 

@@ -21,13 +21,13 @@ if($action=="save"){
 	$user = $_SESSION['user'] ;
 	$card['openid'] = $user['openid'] ;
 	$card['nickname'] = !empty($_POST['nickName'])?$_POST['nickName']:$user['nickname'] ;
-	$card['headurl'] = !empty($_POST['headUrl'])?$_POST['headUrl']:$user['headimgurl'] ;
+	$card['headurl'] = !empty($_POST['userheadUrl'])?$_POST['userheadUrl']:$user['headimgurl'] ;
 	$card['roleid'] = $_POST['roleId'] ;
 	$card['greetid'] = $_POST['greetId'] ;
 
 	$cardsModel = new Cards() ;
 	$ret = $cardsModel->save($card) ;
-	echo json_encode(array('cardId' => $ret)) ;
+	echo json_encode(array('isSuccess'=>'1','cardId' => $ret)) ;
 }
 
 
