@@ -10,15 +10,20 @@
 	define("DB_DATABASE","hdm106787582_db");
 	$syslogFile=$_SERVER['DOCUMENT_ROOT']."/news-".date('Ymd').".log";
 	
-	define("HOST","http://boatinteractive.com") ;
-	define("REDIRECT_URI","http://boatinteractive.com/cards/") ;
+	//define("HOST","http://boatinteractive.com") ;
+	define("HOST","http://act.midea.com") ;
+	//define("REDIRECT_URI","http://boatinteractive.com/cards/") ;
+	define("REDIRECT_URI","http://act.midea.com/card/") ;
 	define("BASE_DIR",dirname(dirname(__FILE__)));
 
 	//正式
-	//define("AppId","wxfeacbc4d70ea1ee4");
-	//define("AppSecret","46c4b82829ff95ecc87336dffee1c930");
+	define("AppId","wxfeacbc4d70ea1ee4");
+	define("AppSecret","46c4b82829ff95ecc87336dffee1c930");
+	//boat
+	
+	//define("AppId","wxb9baa02a839e1e58");
+	//define("AppSecret","1d98e8ff15a1bc69c33ebd994024a30a");
 
-	define("AppId","wxb9baa02a839e1e58");
-	define("AppSecret","1d98e8ff15a1bc69c33ebd994024a30a");
+	define("AppId_AUTH","wx98e78d22de880f6a");
 	
 ?>

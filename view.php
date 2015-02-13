@@ -9,6 +9,9 @@ include(__dir__."/include/functions.php");
 include(__dir__."/models/Cards.php");
 include(__dir__."/libraries/Utils.php");
 include(__dir__."/libraries/weixin.ex.class.php");
+require_once __dir__."/libraries/jssdk.php";
+$jssdk = new JSSDK('wxfeacbc4d70ea1ee4','46c4b82829ff95ecc87336dffee1c930');
+$signPackage = $jssdk->GetSignPackage();
 Utils::safeInput() ;
 $cardModel = new Cards() ;
 $cardId = $_GET['cardId'] ;
@@ -215,6 +218,69 @@ $card = $cardModel->findCardId($cardId) ;
 		createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
 	}
 	</script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: <?php echo $signPackage["timestamp"];?>,
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: [
+		// 所有要调用的 API 都要加到这个列表中
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+	]
+});
+var _shareTitle = "求红包利器" ;
+var _shareDesc = "还在喝酸奶舔瓶盖吗？还在干嚼方便面吃辣条吗？还在吃泡面喝汤吗？小编带你一起装B一起飞好么？come，北鼻！" ;
+var _shareLink = window.location.href ;
+var _shareImgUrl = "http://"+window.location.host+"/cards/images/sharelogo.jpg" ;
+var share = function(_shareTitle,_shareDesc,_shareLink,_shareImgUrl){
+	wx.ready(function () {
+		wx.onMenuShareTimeline({
+		title: _shareTitle,
+		link: _shareLink,
+		imgUrl: _shareImgUrl,
+		trigger: function (res) {
+		// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+		//alert('用户点击分享到朋友圈');
+		//alert(_shareUrl) ;
+		},
+		success: function (res) {
+		  //alert('已分享');
+		},
+		cancel: function (res) {
+		  //alert('已取消');
+		},
+		fail: function (res) {
+		  //alert(JSON.stringify(res));
+		}
+		});
+		wx.onMenuShareAppMessage({
+		title: _shareTitle,
+		desc: _shareDesc,
+		link: _shareLink,
+		imgUrl: _shareImgUrl,
+		trigger: function (res) {
+			// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+			//alert('用户点击发送给朋友');
+		},
+		success: function (res) {
+		  //alert('已分享');
+		},
+		cancel: function (res) {
+		  //alert('已取消');
+		},
+		fail: function (res) {
+		  //alert(JSON.stringify(res));
+		}
+		});  	
+	});  
+}    
+share(_shareTitle,_shareDesc,_shareLink,_shareImgUrl) ;
+</script>
 <script>
 var _hmt = _hmt || [];
 (function() {

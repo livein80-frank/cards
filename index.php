@@ -19,44 +19,39 @@ $signPackage = $jssdk->GetSignPackage();
 //已登录显示内容
 $code = $_GET['code'] ;
 $state = $_GET['state'] ;
+unset($_SESSION['user'])  ;
 
 $user = $_SESSION['user'] ;
-/*
-$user = array (
-  'openid' => 'o70Twt_GWx_vm2UmTO9WAmTIpvNA',
-  'nickname' => 'Frank',
-  'sex' => 1,
-  'language' => 'zh_CN',
-  'city' => '朝阳',
-  'province' => '北京',
-  'country' => '中国',
-  'headimgurl' => 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEKHwQDP2fznTsFuav6Ve3XK7Z9wKW4YMUkFhvNCRriaJZsT4Cic1tb4CmpSP1CYpYnulSnuXgiaXTa9w/0',
-  'privilege' => 
-  array (
-  ),
-);*/
 if(empty($user)&&!empty($code)&&!empty($state)){
 	$wxClient = new WeiXinClientV1(AppId,AppSecret);
+	/*
 	$token = $wxClient->oauth->getAccessTokenByCode($code);
-
 	$openid = $token['openid'] ;
 	$wxuser = $wxClient->findUser($openid) ;
-	//systemLog(var_export($wxuser,true)) ;
+	*/
+	$access_token = $wxClient->oauth->get('http://w.midea.com/wxuserauth/getuserauth', array('code'=>$code)) ;
+	//systemLog($access_token) ;
+	//var_dump($access_token) ;
+	$openid = $access_token['openid'] ;
+	//echo $access_token ;
+	//$wxClient->oauth->access_token = $access_token ;
+	//$wxuser = $wxClient->findUser($access_token['openid']) ;
+	$wxuser = $wxClient->oauth->get("https://api.weixin.qq.com/sns/userinfo",array('access_token'=>$access_token['access_token'],'openid'=>$openid,'lang'=>'zh_CN')) ;
+	//var_dump($wxuser) ;
 	$userModel = new Users() ;
 	$u = $userModel->findByOpenId($openid) ;
-	//systemLog(var_export($u,true)) ;
+	var_dump($u) ;
 	//如果用户不存在，保存
 	if(!$u){
 		$userModel->save($wxuser) ;		
 	}
 	$_SESSION['user'] = $wxuser ;
 	$user = $_SESSION['user'] ;
-	//var_dump($wxuser) ;
+	echo "===" ;
 }
-//var_dump($user) ;
-//unset($_SESSION['user']) ;
 if(empty($user)){
-	header("Location:".snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test")) ;
+	//header("Location:".snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test")) ;
+	//doAuth(REDIRECT_URI, "userinfo") ;
 }
 /**
  * echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
@@ -67,16 +62,19 @@ if(empty($user)){
  * @param  [type] $state        [description]
  */
 function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
-	//http%3A%2F%2Fwww.naifenyun.com%2Fwechat%2Fcallback
 	$redirect_uri = urlencode($redirect_uri) ;
 	$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$appid ;
 	$url .= "&redirect_uri={$redirect_uri}&response_type=code&scope={$scope}&state={$state}#wechat_redirect" ;
 
 	return $url ;
 }
-//systemLog(var_export($user,true)) ;
-//var_dump($user) ;
-//echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;
+
+function doAuth($returnUrl, $type = "base"){
+	header("content-Type: text/html; charset=Utf-8");
+	$redirectUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AppId_AUTH . '&redirect_uri=http%3A%2F%2Fw.midea.com%2Fwxuserauth%2Fredirect%3Fthd_url%3D' . urlencode(urlencode($returnUrl)) . '&response_type=code&scope=snsapi_' . $type . '&state=1#wechat_redirect';	
+	header("Location: " . $redirectUrl);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,7 +112,7 @@ function snsapi_url($scope="snsapi_userinfo",$appid,$redirect_uri,$state){
 <script type="text/javascript" src="js/aniUI03.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/Utils.js"></script>
-<script type="text/javascript" src="js/index.js?v=0.2"></script>
+<script type="text/javascript" src="js/index.js?v=0.3"></script>
 <script>
 var canvas, stage,loadingUi, mainUi,ani1,ani2,ani3;
 var loading_lib = [];
