@@ -225,7 +225,7 @@ function initUI (_headimgUrl,_nickName) {
 
 			_nickTxt.text = _nickNameStr+"祝你" || "test";
 
-			_kardMc.gtInfoMc.gotoAndStop(greetId);
+			_kardMc.gtInfoMc.gotoAndStop(greetId+1);
 
 			
 
@@ -243,7 +243,7 @@ function initUI (_headimgUrl,_nickName) {
 
 		 */
 
-		var postUrl = "/cards/cardsAction.php?action=save";
+		var postUrl = "/card/cardsAction.php?action=save";
 
 		function submitUserInfo () {
 
@@ -277,13 +277,13 @@ function initUI (_headimgUrl,_nickName) {
 				if(obj.isSuccess=='1'){
 					//获取分享的地址
 					//_shareUrl = obj.linkUrl; 
-					_shareUrl = "http://"+window.location.host+"/cards/view.php?cardId="+obj.cardId; 
+					_shareUrl = "http://"+window.location.host+"/card/view.php?cardId="+obj.cardId; 
 					_kardMc.play();
 					console.log('_kardMc.play');
 					_shareTitle = "求红包利器" ;
 					_shareDesc = "还在喝酸奶舔瓶盖吗？还在干嚼方便面吃辣条吗？还在吃泡面喝汤吗？小编带你一起装B一起飞好么？come，北鼻！" ;
 					_shareLink = _shareUrl ;
-					_shareImgUrl = "http://"+window.location.host+"/cards/images/sharelogo.jpg" ;
+					_shareImgUrl = "http://"+window.location.host+"/card/images/sharelogo.jpg" ;
 					share(_shareTitle,_shareDesc,_shareLink,_shareImgUrl) ;
 
 				}else{

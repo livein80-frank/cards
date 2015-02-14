@@ -1,4 +1,6 @@
 <?php
+$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+echo $url ;
 require_once __dir__."/libraries/jssdk.php";
 $jssdk = new JSSDK('wxfeacbc4d70ea1ee4','46c4b82829ff95ecc87336dffee1c930');
 $signPackage = $jssdk->GetSignPackage();

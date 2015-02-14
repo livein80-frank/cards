@@ -1035,7 +1035,7 @@ p.nominalBounds = new cjs.Rectangle(-29.9,-4.5,301.2,301.2);
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.instance_1}]},1).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-55.5,-21.9,374,373);
+p.nominalBounds = new cjs.Rectangle(-55.5,-21.9,373,373);
 
 
 // stage content:

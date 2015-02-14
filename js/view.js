@@ -7,7 +7,7 @@ function initUI (_userheadUrl,_nickNameStr,_roleId,_greetId) {
 	}	
 	curAni.kardMc.gotoAndPlay(2);
 	curAni.kardMc.nickTxt.text = _nickNameStr +" 祝你" || "test";
-	curAni.kardMc.gtInfoMc.gotoAndStop(_greetId);
+	curAni.kardMc.gtInfoMc.gotoAndStop(_greetId+1);
 	var img = new Image();
 	img.onload = function() {
 		var bm = new createjs.Bitmap(img);

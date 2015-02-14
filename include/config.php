@@ -13,7 +13,7 @@
 	//define("HOST","http://boatinteractive.com") ;
 	define("HOST","http://act.midea.com") ;
 	//define("REDIRECT_URI","http://boatinteractive.com/cards/") ;
-	define("REDIRECT_URI","http://act.midea.com/card/") ;
+	define("REDIRECT_URI","http://act.midea.com/card/callback.php") ;
 	define("BASE_DIR",dirname(dirname(__FILE__)));
 
 	//正式
