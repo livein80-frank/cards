@@ -23,7 +23,7 @@ $user = $_SESSION['user'] ;
 //var_dump($user) ;exit() ;
 if(empty($user)||isset($user['errcode'])){
 	//header("Location:".snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test")) ;
-	  doAuth(REDIRECT_URI, "userinfo") ;
+	  // doAuth(REDIRECT_URI, "userinfo") ;
 }
 /**
  * echo snsapi_url($scope="snsapi_userinfo",AppId,REDIRECT_URI,"test") ;

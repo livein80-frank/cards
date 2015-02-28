@@ -4,16 +4,16 @@
 	date_default_timezone_set('PRC'); //设置中国时区	
 	define("NOW",time());
 
-	define("DB_HOST","hdm106787582.my3w.com");
-	define("DB_USER","hdm106787582");
-	define("DB_PASSWORD","boat12345");
-	define("DB_DATABASE","hdm106787582_db");
+	define("DB_HOST","localhost");
+	define("DB_USER","mdbxcjhk");
+	define("DB_PASSWORD","MD_bxcjhk_123");
+	define("DB_DATABASE","mdbxcjhk");
 	$syslogFile=$_SERVER['DOCUMENT_ROOT']."/news-".date('Ymd').".log";
 	
 	//define("HOST","http://boatinteractive.com") ;
 	define("HOST","http://act.midea.com") ;
 	//define("REDIRECT_URI","http://boatinteractive.com/cards/") ;
-	define("REDIRECT_URI","http://act.midea.com/card/callback.php") ;
+	define("REDIRECT_URI","http://act.midea.com/mdbxcjhk/site/callback.php") ;
 	define("BASE_DIR",dirname(dirname(__FILE__)));
 
 	//正式

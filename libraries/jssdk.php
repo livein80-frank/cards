@@ -10,8 +10,8 @@ class JSSDK {
 
   public function getSignPackage() {
     $jsapiTicket = $this->getJsApiTicket();
-    //$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $url = "http://act.midea.com/card/" ;
+    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    //$url = "http://act.midea.com/card/" ;
     $timestamp = time();
     $nonceStr = $this->createNonceStr();
 
